@@ -37,7 +37,7 @@ public class Member extends BaseEntity implements Serializable {
     @JsonIgnore
     @ToString.Exclude
     @OneToMany(mappedBy = "member")
-    private List<AuthoritiesId> authorities;
+    private List<Authorities> authorities;
 
     // 비밀번호 변경 일시
     private LocalDateTime credentialChangedAt;

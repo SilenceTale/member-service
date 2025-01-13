@@ -15,6 +15,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RestControllerAdvice("org.koreait")
 public class CommonControllerAdvice {
+
     private final Utils utils;
 
     @ExceptionHandler(Exception.class)
