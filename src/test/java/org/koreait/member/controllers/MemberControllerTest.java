@@ -27,13 +27,13 @@ public class MemberControllerTest {
 
     @Test
     void joinTest() throws Exception {
-        // 회원가입
+        // 회원 가입
         RequestJoin form = new RequestJoin();
         form.setEmail("user01@test.org");
-//        form.setName("사용자01");
-//        form.setPassword("_Aa123456");
-//        form.setConfirmPassword(form.getPassword());
-//        form.setRequiredTerms1(true);
+        form.setName("사용자01");
+        form.setPassword("_aA123456");
+        form.setConfirmPassword(form.getPassword());
+        form.setRequiredTerms1(true);
         form.setRequiredTerms2(true);
         form.setRequiredTerms3(true);
         form.setOptionalTerms(List.of("advertisement"));

@@ -43,7 +43,7 @@ public class LoginValidator implements Validator {
             return;
         }
 
-        // 비밀번호가 일치하지 않는 경우
+        //  비밀번호가 일치하지 않는 경우
         if (!passwordEncoder.matches(password, member.getPassword())) {
             errors.reject("Mismatch.login");
         }

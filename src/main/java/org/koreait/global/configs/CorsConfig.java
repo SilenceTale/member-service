@@ -9,8 +9,8 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 public class CorsConfig {
 
-//    @Value("${cors.allowed}")
-//    private List<String> allowedOrigin;
+    //@Value("${cors.allowed}")
+    //private List<String> allowedOrigin;
 
     @Bean
     public CorsFilter corsFilter() {
@@ -21,13 +21,12 @@ public class CorsConfig {
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
 
-       // if (allowedOrigin == null || allowedOrigin.isEmpty()) {
-          //  config.addAllowedOrigin("*");
-        //} else {
-           // config.setAllowedOrigins(allowedOrigin);
-           // config.setAllowCredentials(true);
+      //  if (allowedOrigin == null || allowedOrigin.isEmpty()) {
+            config.addAllowedOrigin("*");
+       // } else {
+       //     config.setAllowedOrigins(allowedOrigin);
+       //     config.setAllowCredentials(true);
         //}
-
 
         source.registerCorsConfiguration("/**", config);
 

@@ -41,7 +41,7 @@ public class MemberController {
     }
 
     /**
-     * 로그인 성공 시 토큰 발급
+     * 로그인 성공시 토큰 발급
      *
      * @param form
      * @param errors
@@ -61,7 +61,7 @@ public class MemberController {
         return new JSONData(token);
     }
 
-    @PreAuthorize("authenticated()")
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/test")
     public void test(@AuthenticationPrincipal MemberInfo memberInfo) {
         System.out.println(memberInfo);
