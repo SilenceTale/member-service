@@ -3,6 +3,7 @@ package org.koreait.global.configs;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.koreait.member.jwt.filters.LoginFilter;
+import org.springframework.boot.autoconfigure.session.DefaultCookieSerializerCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -48,7 +49,12 @@ public class SecurityConfig {
                    }); // 로그인 후 권한이 없는 경우
                 })
                 .authorizeHttpRequests(c -> {
-                   c.requestMatchers("/member/join", "/member/login").permitAll()
+                   c.requestMatchers("join",
+                                   "/login",
+                                   "/apidocs.html",
+                                   "/swagger-ui/**",
+                                   "/api-docs/**"
+                                   ).permitAll()
                            .requestMatchers("/admin/member/**").hasAnyAuthority("ADMIN")
                            .anyRequest().authenticated();
                 });
@@ -61,4 +67,6 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    public DefaultCookieSerializerCustomizer
 }
