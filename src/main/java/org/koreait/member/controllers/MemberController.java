@@ -5,11 +5,14 @@ import lombok.RequiredArgsConstructor;
 import org.koreait.global.exceptions.BadRequestException;
 import org.koreait.global.libs.Utils;
 import org.koreait.global.rests.JSONData;
+import org.koreait.member.MemberInfo;
 import org.koreait.member.jwt.TokenService;
 import org.koreait.member.services.MemberUpdateService;
 import org.koreait.member.validators.JoinValidator;
 import org.koreait.member.validators.LoginValidator;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,5 +59,12 @@ public class MemberController {
         String token = tokenService.create(email);
 
         return new JSONData(token);
+    }
+
+    @PreAuthorize("authenticated()")
+    @GetMapping("/test")
+    public void test(@AuthenticationPrincipal MemberInfo memberInfo) {
+        System.out.println(memberInfo);
+        System.out.println("회원 전용 URL");
     }
 }
