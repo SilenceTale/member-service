@@ -8,6 +8,7 @@ import org.koreait.global.rests.JSONData;
 import org.koreait.member.jwt.TokenService;
 import org.koreait.member.services.MemberUpdateService;
 import org.koreait.member.validators.JoinValidator;
+import org.koreait.member.validators.LoginValidator;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,7 @@ public class MemberController {
     private final MemberUpdateService updateService;
     private final JoinValidator joinValidator;
     private final TokenService tokenService;
+    private final LoginValidator loginValidator;
 
     @PostMapping("/join")
     @ResponseStatus(HttpStatus.CREATED)
@@ -44,8 +46,10 @@ public class MemberController {
     @PostMapping("/login")
     public JSONData login(@RequestBody @Valid RequestLogin form, Errors errors) {
 
+        loginValidator.validate(form, errors);
+
         if (errors.hasErrors()) {
-            throw new BadRequestException(utils.getErrorMessages(errors))
+            throw new BadRequestException(utils.getErrorMessages(errors));
         }
 
         String email = form.getEmail();
