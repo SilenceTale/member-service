@@ -10,7 +10,6 @@ import org.koreait.member.MemberInfo;
 import org.koreait.member.services.MemberInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,7 +23,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Lazy
 @Service
 @EnableConfigurationProperties(JwtProperties.class)
 public class TokenService {
@@ -88,6 +86,8 @@ public class TokenService {
         String email = claims.getSubject();
         String authorities = (String) claims.get("authorities");
         List<SimpleGrantedAuthority> _authorities = Arrays.stream(authorities.split("\\|\\|")).map(SimpleGrantedAuthority::new).toList();
+        System.out.println("authorities:" + authorities);
+        System.out.println("_authorities:" + _authorities);
 
         MemberInfo memberInfo = (MemberInfo) infoService.loadUserByUsername(email);
         memberInfo.setAuthorities(_authorities);

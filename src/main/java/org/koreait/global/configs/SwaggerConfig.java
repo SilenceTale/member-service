@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@OpenAPIDefinition(info = @Info(title="회원 인증/인가 API", description = "회원 가입 및 로그인, 회원 인가 체크에 대한 API 제공"))
+@OpenAPIDefinition(info=@Info(title="회원 인증/인가 API", description = "회원 가입 및 로그인, 회원 인가 체크에 대한 API 제공"))
 public class SwaggerConfig {
 
     @Bean
