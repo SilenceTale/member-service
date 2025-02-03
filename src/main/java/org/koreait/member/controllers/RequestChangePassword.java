@@ -9,5 +9,5 @@ public class RequestChangePassword {
     private String token; // 임시 토큰
 
     @NotBlank
-    private String password; // 변경할 비밀번호
+    private String password; // 변경할 비빌번호
 }

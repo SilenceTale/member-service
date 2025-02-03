@@ -69,7 +69,8 @@ public class MemberController {
             String[] domains = frontDomain.split(",");
             for (String domain : domains) {
 
-                response.setHeader("set-Cookie", String.format("token=%s; Path=/; Domain=%s; Secure; HttpOnly; SameSite=None", token, domain)); // SameSite: NONE - 다른 서버에서도 쿠키 설정 가능, 반드시 Https는 필수
+
+                response.setHeader("Set-Cookie", String.format("token=%s; Path=/; Domain=%s; Secure; HttpOnly; SameSite=None", token, domain)); // SameSite: None - 다른 서버에서도 쿠키 설정 가능, Https는 필수
             }
         }
 
@@ -78,7 +79,6 @@ public class MemberController {
 
     /**
      * 로그인한 회원정보 조회
-     *
      * @return
      */
     @GetMapping("/")
@@ -86,6 +86,7 @@ public class MemberController {
 
         return new JSONData(memberInfo.getMember());
     }
+
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PostMapping("/find/password")

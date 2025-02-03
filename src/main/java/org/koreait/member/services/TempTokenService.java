@@ -7,6 +7,7 @@ import org.koreait.member.constants.TokenAction;
 import org.koreait.member.entities.Member;
 import org.koreait.member.entities.TempToken;
 import org.koreait.member.exceptions.MemberNotFoundException;
+import org.koreait.member.exceptions.TempTokenExpiredException;
 import org.koreait.member.exceptions.TempTokenNotFoundException;
 import org.koreait.member.repositories.MemberRepository;
 import org.koreait.member.repositories.TempTokenRepository;
@@ -40,10 +41,10 @@ public class TempTokenService {
      *
      * @return
      */
-    public TokenAction issue(String email, TokenAction action, String origin) {
+    public TempToken issue(String email, TokenAction action, String origin) {
         Member member = memberRepository.findByEmail(email).orElseThrow(MemberNotFoundException::new);
 
-        TempToken token = TempToken.builder();
+        TempToken token = TempToken.builder()
                 .token(UUID.randomUUID().toString())
                 .member(member)
                 .action(action)
@@ -94,7 +95,11 @@ public class TempTokenService {
     }
 
     public TempToken get(String token) {
-        TempToken token = tempTokenRepository.findByToken(token).orElseThrow(TempTokenNotFoundException::new));
-        if(tempToken.isExpired)
+        TempToken tempToken = tempTokenRepository.findByToken(token).orElseThrow(TempTokenNotFoundException::new);
+        if (tempToken.isExpired()) {
+            throw new TempTokenExpiredException();
+        }
+
+        return tempToken;
     }
 }

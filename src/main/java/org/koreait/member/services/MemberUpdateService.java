@@ -98,7 +98,7 @@ public class MemberUpdateService implements PasswordValidator {
 
     /**
      * 회원이 입력한 회원명 + 휴대전화번호로 회원을 찾고
-     * 가입한 이메일로 비밀번호 변경 가능한 임시 토큰을 발급하고 메일을 전송.
+     * 가입한 이메일로 비번 변경 가능한 임시 토큰을 발급하고 메일을 전송
      *
      * @param form
      */
@@ -109,7 +109,7 @@ public class MemberUpdateService implements PasswordValidator {
         Member member = memberRepository.findByNameAndMobile(name, mobile).orElseThrow(MemberNotFoundException::new);
         String email = member.getEmail();
 
-        TempToken token = tempTokenService.issue(email, TokenAction.PASSWORD_CHANGE, form.getOrigin());
+        TempToken token = tempTokenService.issue(email, TokenAction.PASSWORD_CHANGE, form.getOrigin()); // 토큰 발급
         tempTokenService.sendEmail(token.getToken()); // 이메일 전송
 
     }
@@ -125,20 +125,22 @@ public class MemberUpdateService implements PasswordValidator {
 
         TempToken tempToken = tempTokenService.get(token);
 
-        //비밀번호 자리수 검증
+        // 비밀번호 자리수 검증
         if (password.length() < 8) {
             throw new BadRequestException(utils.getMessage("Size.requestJoin.password"));
         }
 
-        //비밀번호 복잡성 검증
+        // 비밀번호 복잡성 검증
         if (!alphaCheck(password, false) || !numberCheck(password) || !specialCharsCheck(password)) {
             throw new BadRequestException(utils.getMessage("Complexity.requestJoin.password"));
         }
+
         Member member = tempToken.getMember();
 
         String hash = passwordEncoder.encode(password);
         member.setPassword(hash);
         member.setCredentialChangedAt(LocalDateTime.now());
+        memberRepository.saveAndFlush(member);
     }
 
 }

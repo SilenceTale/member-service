@@ -19,7 +19,7 @@ public class BeansConfig {
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
 
-        return new restTemplate();
+        return restTemplate;
     }
 
     @Lazy

@@ -4,4 +4,4 @@ spring:
 
   cloud:
     config:
-      uri: ${config.server}  # 환경 변수에서 Config 서버 URI를 가져옵니다
+      uri: ${config.server}
