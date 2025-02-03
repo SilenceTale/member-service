@@ -123,7 +123,6 @@ public class MemberUpdateService implements PasswordValidator {
         String token = form.getToken();
         String password = form.getPassword();
 
-
         TempToken tempToken = tempTokenService.get(token);
 
         //비밀번호 자리수 검증
