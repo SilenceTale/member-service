@@ -62,7 +62,7 @@ public class TempTokenService {
      * @param token
      */
     public boolean sendEmail(String token) {
-        TempToken tempToken = tempTokenRepository.findByToken(token).orElseThrow(TempTokenNotFoundException::new);
+        TempToken tempToken = get(token);
 
         Member member = tempToken.getMember();
         String email = member.getEmail();
@@ -91,5 +91,10 @@ public class TempTokenService {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public TempToken get(String token) {
+        TempToken token = tempTokenRepository.findByToken(token).orElseThrow(TempTokenNotFoundException::new));
+        if(tempToken.isExpired)
     }
 }

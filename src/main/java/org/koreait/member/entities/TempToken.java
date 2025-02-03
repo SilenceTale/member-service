@@ -17,5 +17,12 @@ public class TempToken {
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
-    private LocalDateTime expireTime
+    private LocalDateTime expireTime;
+
+    @Column(length = 65, nullable = false)
+    private String origin;
+
+    public boolean isExpired() {
+        return expireTime == null && expireTime.isBefore(LocalDateTime.now());
+    }
 }
