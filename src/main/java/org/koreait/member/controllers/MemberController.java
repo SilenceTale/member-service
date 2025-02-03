@@ -86,4 +86,10 @@ public class MemberController {
 
         return new JSONData(memberInfo.getMember());
     }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PostMapping("/find/password")
+    public void findPassword() {
+
+    }
 }
